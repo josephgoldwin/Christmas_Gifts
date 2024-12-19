@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christmas Gift Boxes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+  .gift-box {
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+    background-color: #ff5555;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #a00000;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+  }
+
+  .gift-box:hover {
+    transform: scale(1.05);
+  }
+
+  .hidden-message {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: #333;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 10;
+  }
+
+  button {
+    background-color: #fff;
+    border: none;
+    color: #ff5555;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #ffcccc;
+  }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="text-center text-danger">🎄 Christmas Gift Boxes 🎁</h1>
+    <div class="row" id="gift-container" class="d-flex flex-wrap justify-content-center"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    $(document).ready(function () {
+      const giftContainer = $('#gift-container');
+
+      // Define the stock for each item (the quantity you have in stock)
+      const stock = {
+        'பேனா': 20,
+        'வாளி': 5,
+        'கேக்': 40,
+        'கப் ': 10,
+        'கிளிப்': 15,
+        'குடம் ':2,
+        'பிளாஸ்டிக் டிபன் பாக்ஸ்':10,
+        'பிளாஸ்டிக் தட்டு':10,
+        'டீ கப்':8,
+        
+
+        
+
+        
+      };
+
+      // List of gift types (each type should be repeated according to its stock)
+      let giftList = [];
+
+      // Fill the giftList based on the stock
+      for (let item in stock) {
+        for (let i = 0; i < stock[item]; i++) {
+          giftList.push(item); // Add the item to the list multiple times
+        }
+      }
+
+      // Shuffle the gift list to randomize the order (optional)
+      giftList = giftList.sort(() => Math.random() - 0.5);
+
+      // Generate the gift boxes based on the giftList
+      giftList.forEach((gift, index) => {
+        const giftBox = `
+          <div class="gift-box" id="gift-box-${index + 1}">
+            <div class="hidden-message"><mark>🎁  ${gift}</mark></div>
+            <button class="btn-open">${index + 1}</button>
+          </div>
+        `;
+        giftContainer.append(giftBox);
+      });
+
+      // Handle button click
+      $('.btn-open').on('click', function () {
+        const hiddenMessage = $(this).siblings('.hidden-message');
+        hiddenMessage.fadeIn(500).delay(2000).fadeOut(500); // Show message briefly
+      });
+    });
+  </script>
+</body>
+</html>
